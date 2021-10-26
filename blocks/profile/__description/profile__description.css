@@ -1,0 +1,20 @@
+.profile__description{
+    grid-area: description;
+    margin:0;/* обнуляем отступы унаследованные от браузера*/
+
+    max-width: 300px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    /* устанавливаем размеры шрифта*/
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+}
+@media screen and (min-width:320px) and (max-width:450px){
+    .profile__description{
+        font-size: 14px;
+        line-height: 17px; 
+    }
+}
