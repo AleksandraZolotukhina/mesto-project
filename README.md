@@ -26,4 +26,4 @@ ____
 
 - GitHub Pages
 
-    [Ссылка GitHub Pages]()
+    [Ссылка GitHub Pages](https://alexandrazolotykhina.github.io/mesto-project/index.html)
