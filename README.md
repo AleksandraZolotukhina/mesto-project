@@ -5,6 +5,7 @@
     - Figma
     - Какие технологии используются в проекте
     - GitHub Pages
+    - Исправления
 ## О проекте
 ____
  Проект "Место" использовался для тренировки в разработке интерфейса для разных устройств.
@@ -26,4 +27,5 @@ ____
 
 - GitHub Pages
 
-    [Ссылка GitHub Pages]()
+    [Ссылка GitHub Pages](https://alexandrazolotykhina.github.io/mesto-project/index.html)
+  

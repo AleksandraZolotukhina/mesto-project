@@ -1,9 +1,7 @@
-.popup__button_close{
-    align-self: end;
-
-    position: relative;
-    bottom: 8px;
-    left: 40px;
+.form__button_el_close{
+    position: absolute;
+    top: -40px;
+    right: -40px;
 
     width: 32px;
     height: 32px;
@@ -15,16 +13,16 @@
 
 }
 
-.popup__button_close:hover{
+.form__button_el_close:hover{
     opacity: 0.6;
     cursor: pointer;
 }
 @media screen and (min-width:320px) and (max-width:450px){
-    .popup__button_close{
+    .form__button_el_close{
         width: 20px;
         height: 20px;
 
-        bottom: 17px;
-        left: 0px;
+        top: -32px;
+        right: 0px;
     }
 }

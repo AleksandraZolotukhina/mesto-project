@@ -12,91 +12,85 @@
     <div class="page">
         <header class="page__header header">
             <img class="header__logo" src="./images/logo.svg" alt="Логотип Место, Россия">
-            <div class="header__line"></div>
         </header>
-        <div class="page__wrapper">
-            <main class="page__content">
-                <section class="profile">
-                    <div class="profile__avatar-and-info">
-                        <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар пользователя">
-                        <div class="profile__info">
-                            <h1 class="profile__username">Жак-Ив Кусто</h1>
-                            <button class="profile__button-edit" type="button"></button>
-                            <p class="profile__description">Исследователь океана</p>
-                        </div>
-                    </div>
-                    <button class="profile__button-add" type="button"></button>
-                </section>
 
-                <section class="page__elements elements">
-                    <div class="elements__element">
-                        <img class="elements__picture" src="./images/karachaevsk.jpg" alt="Сентинский храм,Россия">
-                        <div class="elements__description">
-                            <h2 class="elements__title">Карачаевск</h2>
-                            <button class="elements__like-button" type="button"></button>
-                        </div>
+        <main class="page__content">
+            <section class="profile">
+                <div class="profile__avatar-and-info">
+                    <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар пользователя">
+                    <div class="profile__info">
+                        <h1 class="profile__username">Жак-Ив Кусто</h1>
+                        <button class="profile__button-edit" type="button"></button>
+                        <p class="profile__description">Исследователь океана</p>
                     </div>
-                    <div class="elements__element">
-                        <img class="elements__picture" src="./images/mountain-elbrus.png" alt="Силуэт гор в закате">
-                        <div class="elements__description">
-                            <h2 class="elements__title">Гора Эльбрус</h2>
-                            <button class="elements__like-button" type="button"></button>
-                        </div>
-                    </div>
-                    <div class="elements__element">
-                        <img class="elements__picture" src="./images/dombai.png" alt="Домбай, горный хребет в России">
-                        <div class="elements__description">
-                            <h2 class="elements__title">Домбай</h2>
-                            <button class="elements__like-button" type="button"></button>
-                        </div>
-                    </div>
-                    <div class="elements__element">
-                        <img class="elements__picture" src="./images/mountain-elbrus.png" alt="Силуэт гор в закате">
-                        <div class="elements__description">
-                            <h2 class="elements__title">Гора Эльбрус</h2>
-                            <button class="elements__like-button" type="button"></button>
-                        </div>
-                    </div>
-                    <div class="elements__element">
-                        <img class="elements__picture" src="./images/dombai.png" alt="Домбай, горный хребет в России">
-                        <div class="elements__description">
-                            <h2 class="elements__title">Домбай</h2>
-                            <button class="elements__like-button" type="button"></button>
-                        </div>
-                    </div>
-                    <div class="elements__element">
-                        <img class="elements__picture" src="./images/karachaevsk.jpg" alt="Сентинский храм,Россия">
-                        <div class="elements__description">
-                            <h2 class="elements__title">Карачаево-Черкесская Республика</h2>
-                            <button class="elements__like-button" type="button"></button>
-                        </div>
-                    </div>
-                </section>
+                </div>
+                <button class="profile__button-add" type="button"></button>
+            </section>
 
-                <section class="popup popup_opened">
-                    <div class="popup__container form">
-                        <button class="popup__button popup__button_close" type="button"></button>
-                        <form class="form__edit-profile" action="#" method="POST" name="edit-profile">
-                            <h3 class="form__title">Редактировать профиль</h3>
-                            <fieldset class="form__fieldset form__fieldset_ctrl_texts">
-                                <label for="username"></label>
-                                <input class="form__input form__input_el_username" id="username" type="text"
-                                    name="username">
-                                <label for="descrodtion-user"></label>
-                                <input class="form__input form__input_el_description-user" id="descrodtion-user"
-                                    type="text" name="description-user">
-                            </fieldset>
-                            <fieldset class="form__fieldset form__fieldset_ctrl_save">
-                                <button class="form__button form__button_el_save" type="submit">Сохранить</button>
-                            </fieldset>
-                        </form>
+            <section class="page__elements elements">
+                <div class="elements__element">
+                    <img class="elements__picture" src="./images/karachaevsk.jpg" alt="Сентинский храм,Россия">
+                    <div class="elements__description">
+                        <h2 class="elements__title">Карачаевск</h2>
+                        <button class="elements__like-button" type="button"></button>
                     </div>
-                </section>
-            </main>
-            <footer class="footer">
-                <p class="footer__copyright">&copy;&nbsp;2020 Mesto Russia</p>
-            </footer>
-        </div>
+                </div>
+                <div class="elements__element">
+                    <img class="elements__picture" src="./images/mountain-elbrus.png" alt="Силуэт гор в закате">
+                    <div class="elements__description">
+                        <h2 class="elements__title">Гора Эльбрус</h2>
+                        <button class="elements__like-button" type="button"></button>
+                    </div>
+                </div>
+                <div class="elements__element">
+                    <img class="elements__picture" src="./images/dombai.png" alt="Домбай, горный хребет в России">
+                    <div class="elements__description">
+                        <h2 class="elements__title">Домбай</h2>
+                        <button class="elements__like-button" type="button"></button>
+                    </div>
+                </div>
+                <div class="elements__element">
+                    <img class="elements__picture" src="./images/mountain-elbrus.png" alt="Силуэт гор в закате">
+                    <div class="elements__description">
+                        <h2 class="elements__title">Гора Эльбрус</h2>
+                        <button class="elements__like-button" type="button"></button>
+                    </div>
+                </div>
+                <div class="elements__element">
+                    <img class="elements__picture" src="./images/dombai.png" alt="Домбай, горный хребет в России">
+                    <div class="elements__description">
+                        <h2 class="elements__title">Домбай</h2>
+                        <button class="elements__like-button" type="button"></button>
+                    </div>
+                </div>
+                <div class="elements__element">
+                    <img class="elements__picture" src="./images/karachaevsk.jpg" alt="Сентинский храм,Россия">
+                    <div class="elements__description">
+                        <h2 class="elements__title">Карачаево-Черкесская Республика</h2>
+                        <button class="elements__like-button" type="button"></button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="popup popup_opened form">
+                <form class="popup__container form__edit-profile" action="#" method="POST" name="edit-profile">
+                    <button class="form__button form__button_el_close" type="button"></button>
+                    <h3 class="form__title">Редактировать профиль</h3>
+                    <fieldset class="form__fieldset form__fieldset_ctrl_texts">
+                        <label for="username"></label>
+                        <input class="form__input form__input_el_username" id="username" type="text" name="username"  placeholder="Жак-Ив Кусто">
+                        <label for="descrodtion-user"></label>
+                        <input class="form__input form__input_el_description-user" id="descrodtion-user" type="text"
+                            name="description-user" placeholder="Исследователь океана">
+                    </fieldset>
+                    <button class="form__button form__button_el_save" type="submit">Сохранить</button>
+                </form>
+            </section>
+        </main>
+        <footer class="page__footer footer">
+            <p class="footer__copyright">&copy;&nbsp;2020 Mesto Russia</p>
+        </footer>
+
     </div>
 </body>
 

@@ -1,8 +1,0 @@
-.form__fieldset_ctrl_save{
-    margin-top: 48px;
-}
-@media screen and (min-width:320px) and (max-width:450px){
-    .form__fieldset_ctrl_save{
-        margin-top: 45px;
-    }
-}
