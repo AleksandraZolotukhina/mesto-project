@@ -72,19 +72,22 @@
                 </div>
             </section>
 
-            <section class="popup popup_opened form">
-                <form class="popup__container form__edit-profile" action="#" method="POST" name="edit-profile">
-                    <button class="form__button form__button_el_close" type="button"></button>
-                    <h3 class="form__title">Редактировать профиль</h3>
-                    <fieldset class="form__fieldset form__fieldset_ctrl_texts">
-                        <label for="username"></label>
-                        <input class="form__input form__input_el_username" id="username" type="text" name="username"  placeholder="Жак-Ив Кусто">
-                        <label for="descrodtion-user"></label>
-                        <input class="form__input form__input_el_description-user" id="descrodtion-user" type="text"
-                            name="description-user" placeholder="Исследователь океана">
-                    </fieldset>
-                    <button class="form__button form__button_el_save" type="submit">Сохранить</button>
-                </form>
+            <section class="popup popup_opened">
+                <div class="popup__container form">
+                    <button class="popup__button popup__button_el_close" type="button"></button>
+                    <form class="form__edit-profile" action="#" method="POST" name="edit-profile">
+                        <h3 class="form__title">Редактировать профиль</h3>
+                        <fieldset class="form__fieldset form__fieldset_ctrl_texts">
+                            <label for="username"></label>
+                            <input class="form__input form__input_el_username" id="username" type="text" name="username"
+                                placeholder="Жак-Ив Кусто">
+                            <label for="descrodtion-user"></label>
+                            <input class="form__input form__input_el_description-user" id="descrodtion-user" type="text"
+                                name="description-user" placeholder="Исследователь океана">
+                        </fieldset>
+                        <button class="form__button form__button_el_save" type="submit">Сохранить</button>
+                    </form>
+                </div>
             </section>
         </main>
         <footer class="page__footer footer">
