@@ -28,64 +28,57 @@
             </section>
 
             <section class="page__elements elements">
-                <div class="elements__element">
-                    <img class="elements__picture" src="./images/karachaevsk.jpg" alt="Сентинский храм,Россия">
-                    <div class="elements__description">
-                        <h2 class="elements__title">Карачаевск</h2>
-                        <button class="elements__like-button" type="button"></button>
+                <template class="elements__mesto">
+                    <div class="elements__element">
+                        <img class="elements__picture">
+                        <button class="elements__button elements__trash"></button>
+                        <div class="elements__description">
+                            <h2 class="elements__title"></h2>
+                            <button class="elements__button elements__like-button" type="button"></button>
+                        </div>
                     </div>
-                </div>
-                <div class="elements__element">
-                    <img class="elements__picture" src="./images/mountain-elbrus.png" alt="Силуэт гор в закате">
-                    <div class="elements__description">
-                        <h2 class="elements__title">Гора Эльбрус</h2>
-                        <button class="elements__like-button" type="button"></button>
-                    </div>
-                </div>
-                <div class="elements__element">
-                    <img class="elements__picture" src="./images/dombai.png" alt="Домбай, горный хребет в России">
-                    <div class="elements__description">
-                        <h2 class="elements__title">Домбай</h2>
-                        <button class="elements__like-button" type="button"></button>
-                    </div>
-                </div>
-                <div class="elements__element">
-                    <img class="elements__picture" src="./images/mountain-elbrus.png" alt="Силуэт гор в закате">
-                    <div class="elements__description">
-                        <h2 class="elements__title">Гора Эльбрус</h2>
-                        <button class="elements__like-button" type="button"></button>
-                    </div>
-                </div>
-                <div class="elements__element">
-                    <img class="elements__picture" src="./images/dombai.png" alt="Домбай, горный хребет в России">
-                    <div class="elements__description">
-                        <h2 class="elements__title">Домбай</h2>
-                        <button class="elements__like-button" type="button"></button>
-                    </div>
-                </div>
-                <div class="elements__element">
-                    <img class="elements__picture" src="./images/karachaevsk.jpg" alt="Сентинский храм,Россия">
-                    <div class="elements__description">
-                        <h2 class="elements__title">Карачаево-Черкесская Республика</h2>
-                        <button class="elements__like-button" type="button"></button>
-                    </div>
+                </template>
+            </section>
+            <section class="popup popup_el_picture">
+                <div class="popup__container">
+                    <button class="popup__button popup__button_el_close" type="button"></button>
+                    <figure class="picture">
+                        <img class="picture__element">
+                        <figcaption class="picture__title"></figcaption>
+                    </figure>
                 </div>
             </section>
-
-            <section class="popup popup_opened">
-                <div class="popup__container form">
+            <section class="popup popup_el_profile">
+                <div class="popup__container">
                     <button class="popup__button popup__button_el_close" type="button"></button>
-                    <form class="form__edit-profile" action="#" method="POST" name="edit-profile">
+                    <form class="form" action="#" method="POST" name="edit-profile">
                         <h3 class="form__title">Редактировать профиль</h3>
                         <fieldset class="form__fieldset form__fieldset_ctrl_texts">
                             <label for="username"></label>
-                            <input class="form__input form__input_el_username" id="username" type="text" name="username"
-                                placeholder="Жак-Ив Кусто">
-                            <label for="descrodtion-user"></label>
-                            <input class="form__input form__input_el_description-user" id="descrodtion-user" type="text"
-                                name="description-user" placeholder="Исследователь океана">
+                            <input class="form__input" id="username" type="text" name="username">
+                            <label for="description-user"></label>
+                            <input class="form__input" id="description-user" type="text" name="description-user">
                         </fieldset>
-                        <button class="form__button form__button_el_save" type="submit">Сохранить</button>
+                        <button class="form__button form__button_push" type="submit">Сохранить</button>
+                    </form>
+                </div>
+            </section>
+
+            <section class="popup popup_el_place">
+                <div class="popup__container">
+                    <button class="popup__button popup__button_el_close" type="button"></button>
+                    <form class="form" action="#" method="POST" name="new-place">
+                        <h3 class="form__title">Новое место</h3>
+                        <fieldset class="form__fieldset form__fieldset_ctrl_texts">
+                            <label for="place-title"></label>
+                            <input class="form__input" id="place-title" type="text" name="place-title"
+                                placeholder="Название" required>
+                            <label for="link-image"></label>
+                            <input class="form__input" id="link-image" type="text" name="link-image"
+                                placeholder="Ссылка на картинку" required>
+
+                        </fieldset>
+                        <button class="form__button form__button_push" type="submit">Создать</button>
                     </form>
                 </div>
             </section>
@@ -95,6 +88,7 @@
         </footer>
 
     </div>
+    <script src="./pages/index.js"></script>
 </body>
 
 </html>
