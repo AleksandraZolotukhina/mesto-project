@@ -13,6 +13,12 @@ const inputDescribUser = popupProfile.querySelector("#description-user");
 const userName = content.querySelector(".profile__username");
 const describUser = content.querySelector(".profile__description");
 
+const cards = content.querySelector(".elements");
+const newPicture = popupPicture.querySelector(".picture__element");
+
+const mestoCardTemplate = content.querySelector(".elements__mesto").content;
+const newPlaceTitle = popupPlace.querySelector("#place-title");
+const newLinkImage = popupPlace.querySelector("#link-image");
 const initialCards = [
     {
         name: 'Москва',
@@ -41,20 +47,22 @@ const initialCards = [
 ];
 
 //Фукция открытия и закрытия popup
-function popupVisibility(popup) {
+function togglePopup(popup) {
     popup.classList.toggle("popup_opened");
 }
 //Функция добавления карточек
+function addCard(cards,item){
+    cards.prepend(item);
+}
+//Функция создания карточек
 function addPlace(title, link) {
-    const mestoCardTemplate = content.querySelector(".elements__mesto").content;
-    const cards = content.querySelector(".elements");
     const newPlace = mestoCardTemplate.querySelector(".elements__element").cloneNode(true);
     const initialPicture =  newPlace.querySelector(".elements__picture");
     initialPicture.src = link;
     initialPicture.alt = title;
     newPlace.querySelector(".elements__title").textContent = title;
 
-    cards.prepend(newPlace);
+    addCard(cards,newPlace);
 
     //ставим и убираем лайки карточкам
     newPlace.querySelector(".elements__like-button").addEventListener("click", function (event) {
@@ -70,13 +78,11 @@ function addPlace(title, link) {
 
     //нажатием на фотографию карточки появляется popup picture
     newPlace.querySelector(".elements__picture").addEventListener("click", function (event) {
-        const bigPicture = content.querySelector(".popup_el_picture");
-        const newPicture = bigPicture.querySelector(".picture__element")
         const pictureTitle = event.target.parentElement.querySelector(".elements__title");
         newPicture.src = event.target.src;
         newPicture.alt = pictureTitle.textContent;
-        bigPicture.querySelector(".picture__title").textContent = pictureTitle.textContent;
-        popupVisibility(popupPicture);
+        popupPicture.querySelector(".picture__title").textContent = pictureTitle.textContent;
+        togglePopup(popupPicture);
     })
 
 }
@@ -88,7 +94,7 @@ initialCards.forEach((item) => {
 
 //при нажатии на кнопку "изменение" показываем popup
 buttonEdit.addEventListener("click", function () {
-    popupVisibility(popupProfile);
+    togglePopup(popupProfile);
     // в input записываем имя пользователя и описание о себе
     inputUserName.value = userName.textContent;
     inputDescribUser.value = describUser.textContent;
@@ -102,16 +108,14 @@ popupProfile.addEventListener("submit", function (event) {
     const newDescribUser = inputDescribUser.value;
     userName.textContent = newUserName;
     describUser.textContent = newDescribUser;
-    popupVisibility(popupProfile);
+    togglePopup(popupProfile);
 
 })
 
 //добавляем новую карточку 
 popupPlace.addEventListener("submit", function (event) {
     event.preventDefault();
-    const newPlaceTitle = popupPlace.querySelector("#place-title");
-    const newLinkImage = popupPlace.querySelector("#link-image");
-    popupVisibility(popupPlace);
+    togglePopup(popupPlace);
     addPlace(newPlaceTitle.value, newLinkImage.value);
     newPlaceTitle.value = "";
     newLinkImage.value = "";
@@ -119,13 +123,13 @@ popupPlace.addEventListener("submit", function (event) {
 
 //закрываем popup place
 buttonAdd.addEventListener("click", function () {
-    popupVisibility(popupPlace);
+    togglePopup(popupPlace);
 });
 
 //нажатие на кнопку закрытия popup
 function clickButtonClose(popupElement) {
     popupElement.querySelector(".popup__button_el_close").addEventListener("click", function () {
-        popupVisibility(popupElement);
+        togglePopup(popupElement);
     })
 }
 clickButtonClose(popupProfile);
