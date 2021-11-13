@@ -15,7 +15,7 @@ const describUser = content.querySelector(".profile__description");
 
 const cards = content.querySelector(".elements");
 const newPicture = popupPicture.querySelector(".picture__element");
-
+const pictureTitle =  popupPicture.querySelector(".picture__title");
 const mestoCardTemplate = content.querySelector(".elements__mesto").content;
 const newPlaceTitle = popupPlace.querySelector("#place-title");
 const newLinkImage = popupPlace.querySelector("#link-image");
@@ -55,36 +55,45 @@ function addCard(cards,item){
     cards.prepend(item);
 }
 //Функция создания карточек
-function addPlace(title, link) {
+function createCard(title,link){
     const newPlace = mestoCardTemplate.querySelector(".elements__element").cloneNode(true);
     const initialPicture =  newPlace.querySelector(".elements__picture");
     initialPicture.src = link;
     initialPicture.alt = title;
     newPlace.querySelector(".elements__title").textContent = title;
-
-    addCard(cards,newPlace);
-
-    //ставим и убираем лайки карточкам
-    newPlace.querySelector(".elements__like-button").addEventListener("click", function (event) {
+    
+    return newPlace;
+}
+//ставим и убираем лайки карточкам
+function addLikeEvent(card){
+    card.querySelector(".elements__like-button").addEventListener("click", function (event) {
         const likeButton = event.target;
         likeButton.classList.toggle("elements__like-button_active");
     })
-
-    //удаляем карточки
-    newPlace.querySelector(".elements__trash").addEventListener("click", function (event) {
+}
+//удаляем карточки
+function addDeleteEvent(card){
+    card.querySelector(".elements__trash").addEventListener("click", function (event) {
         const deleteCards = event.target;
         deleteCards.parentElement.remove();
     })
-
-    //нажатием на фотографию карточки появляется popup picture
-    newPlace.querySelector(".elements__picture").addEventListener("click", function (event) {
-        const pictureTitle = event.target.parentElement.querySelector(".elements__title");
-        newPicture.src = event.target.src;
-        newPicture.alt = pictureTitle.textContent;
-        popupPicture.querySelector(".picture__title").textContent = pictureTitle.textContent;
+}
+//нажатием на фотографию карточки появляется popup picture
+function addPopupPictureEvent(card,title,link){
+    card.querySelector(".elements__picture").addEventListener("click", function () {
+        newPicture.src = link;
+        newPicture.alt = title;
+        pictureTitle.textContent = title;
         togglePopup(popupPicture);
     })
-
+}
+//Функция взаимодействия с карточками
+function addPlace(title, link) {
+    const newCard = createCard(title,link);
+    addLikeEvent(newCard);
+    addDeleteEvent(newCard);
+    addPopupPictureEvent(newCard,title,link)
+    addCard(cards,newCard);
 }
 
 //Добавляем карточки из массива
@@ -121,7 +130,7 @@ popupPlace.addEventListener("submit", function (event) {
     newLinkImage.value = "";
 });
 
-//закрываем popup place
+//открываем popup place
 buttonAdd.addEventListener("click", function () {
     togglePopup(popupPlace);
 });
