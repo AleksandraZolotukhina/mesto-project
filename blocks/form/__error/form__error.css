@@ -1,0 +1,12 @@
+.form__error{
+    display: none;
+    
+    margin-bottom: 13px;
+
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF0000;
+}
+.form__error:last-child{
+    margin-bottom: 0;
+}

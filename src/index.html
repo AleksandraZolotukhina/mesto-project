@@ -4,20 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
 
 <body class="body">
     <div class="page">
         <header class="page__header header">
-            <img class="header__logo" src="./images/logo.svg" alt="Логотип Место, Россия">
+            <img class="header__logo" src="<%=require('./../images/logo.svg')%>" alt="Логотип Место, Россия">
         </header>
 
         <main class="page__content">
             <section class="profile">
                 <div class="profile__avatar-and-info">
-                    <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар пользователя">
+                    <img class="profile__avatar" src="<%=require('./../images/avatar.jpg')%>" alt="Аватар пользователя">
                     <div class="profile__info">
                         <h1 class="profile__username">Жак-Ив Кусто</h1>
                         <button class="profile__button-edit" type="button"></button>
@@ -51,15 +50,17 @@
             <section class="popup popup_el_profile">
                 <div class="popup__container">
                     <button class="popup__button popup__button_el_close" type="button"></button>
-                    <form class="form" action="#" method="POST" name="edit-profile">
+                    <form class="form" action="#" method="POST" name="edit-profile" novalidate>
                         <h3 class="form__title">Редактировать профиль</h3>
                         <fieldset class="form__fieldset form__fieldset_ctrl_texts">
                             <label for="username"></label>
-                            <input class="form__input" id="username" type="text" name="username">
-                            <label for="description-user"></label>
-                            <input class="form__input" id="description-user" type="text" name="description-user">
+                            <input class="form__input" id="username" type="text" placeholder="Имя" name="username" minlength="2" maxlength="40" required>
+                            <span class="form__error username-error"></span>
+                            <label for="occupation"></label>
+                            <input class="form__input" id="occupation" type="text" placeholder="Род занятий" name="occupation" minlength="2" maxlength="200" required>
+                            <span class="form__error occupation-error"></span>
                         </fieldset>
-                        <button class="form__button form__button_push" type="submit">Сохранить</button>
+                        <button class="form__button button" type="submit">Сохранить</button>
                     </form>
                 </div>
             </section>
@@ -67,18 +68,20 @@
             <section class="popup popup_el_place">
                 <div class="popup__container">
                     <button class="popup__button popup__button_el_close" type="button"></button>
-                    <form class="form" action="#" method="POST" name="new-place">
+                    <form class="form" action="#" method="POST" name="new-place" novalidate>
                         <h3 class="form__title">Новое место</h3>
                         <fieldset class="form__fieldset form__fieldset_ctrl_texts">
                             <label for="place-title"></label>
                             <input class="form__input" id="place-title" type="text" name="place-title"
-                                placeholder="Название" required>
+                                placeholder="Название" minlength="2" maxlenghth="30" required>
+                                <span class="form__error place-title-error"></span>
                             <label for="link-image"></label>
-                            <input class="form__input" id="link-image" type="text" name="link-image"
+                            <input class="form__input" id="link-image" type="url" name="link-image"
                                 placeholder="Ссылка на картинку" required>
+                            <span class="form__error link-image-error"></span>    
 
                         </fieldset>
-                        <button class="form__button form__button_push" type="submit">Создать</button>
+                        <button class="form__button button" type="submit">Создать</button>
                     </form>
                 </div>
             </section>
@@ -88,7 +91,6 @@
         </footer>
 
     </div>
-    <script src="./pages/index.js"></script>
 </body>
 
 </html>
