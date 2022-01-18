@@ -8,35 +8,35 @@ import baikalImage from "./../../images/Baikal.jpg";
 import petropavlovskKamchatskyImage from "./../../images/Petropavlovsk-Kamchatsky.jpg";
 
 import {addPlace} from "./card.js";
-import {clickButtonClose} from "./modal.js"
+
 import {togglePopup} from "./utils.js"
 
-import {setUpValidation} from "./validate.js";
-import {inDisableButton} from "./validate.js";
+import {setUpValidation, isValidAllInputs} from "./validate.js";
+import {clearErrorFields} from "./modal.js"
 
 const content = document.querySelector(".page__content");
 
-export const buttonEdit = content.querySelector(".profile__button-edit");
-export const buttonAdd = content.querySelector(".profile__button-add");
+const buttonEdit = content.querySelector(".profile__button-edit");
+const buttonAdd = content.querySelector(".profile__button-add");
 
-export const popupProfile = content.querySelector(".popup_el_profile");
-export const popupPlace = content.querySelector(".popup_el_place");
+const popupProfile = content.querySelector(".popup_el_profile");
+const popupPlace = content.querySelector(".popup_el_place");
 export const popupPicture = content.querySelector(".popup_el_picture");
 
-export const inputUserName = popupProfile.querySelector("#username");
-export const inputDescribUser = popupProfile.querySelector("#occupation");
+const inputUserName = popupProfile.querySelector("#username");
+const inputDescribUser = popupProfile.querySelector("#occupation");
 
-export const userName = content.querySelector(".profile__username");
-export const describUser = content.querySelector(".profile__description");
+const userName = content.querySelector(".profile__username");
+const describUser = content.querySelector(".profile__description");
 
 export const cards = content.querySelector(".elements");
 export const newPicture = popupPicture.querySelector(".picture__element");
 export const pictureTitle = popupPicture.querySelector(".picture__title");
 export const mestoCardTemplate = content.querySelector(".elements__mesto").content;
-export const newPlaceTitle = popupPlace.querySelector("#place-title");
-export const newLinkImage = popupPlace.querySelector("#link-image");
+const newPlaceTitle = popupPlace.querySelector("#place-title");
+const newLinkImage = popupPlace.querySelector("#link-image");
 
-export const initialCards = [
+const initialCards = [
    {
       name: 'Москва',
       link: moscowImage
@@ -72,7 +72,30 @@ const enableValidation= ({
    buttonClassDisable: "button_disable"
 });  
 
+// вызываем валидацию
 setUpValidation(enableValidation);
+
+//Добавляем карточки из массива
+initialCards.forEach((item) => {
+   addPlace(item["name"], item["link"]);
+});
+
+// закрываем popup при нажатии на крестик или оверлей
+document.addEventListener("click", function(event){
+   if(event.target.matches(".popup__button_el_close") || event.target.matches(".popup")){
+     togglePopup(content.querySelector(".popup_opened"));
+   }
+})
+
+// закрываем popup при нажатии Escape
+document.addEventListener("keydown", function(event){
+   const popup = content.querySelector(".popup_opened")
+   if(event.key==="Escape" && popup !== null){
+      togglePopup(popup);
+   }
+})
+
+
 
 //при нажатии на кнопку "изменение" показываем popup
 buttonEdit.addEventListener("click", function () {
@@ -80,10 +103,16 @@ buttonEdit.addEventListener("click", function () {
    // в input записываем имя пользователя и описание о себе
    inputUserName.value = userName.textContent;
    inputDescribUser.value = describUser.textContent;
-   inDisableButton(popupProfile, enableValidation.buttonSelector, enableValidation.buttonClassDisable);
+   const inputList = Array.from(popupProfile.querySelectorAll(".form__input"));
+
+   // делаем проверку на валидность, с помощью которой сохраняем доступ к кнопке
+   isValidAllInputs(popupProfile, inputList, enableValidation.buttonSelector, enableValidation.buttonClassDisable);
+
+   // так как в input записали новые валидные значения, то ошибки удаляем
+   clearErrorFields(popupProfile, inputList, enableValidation.errorClassVisible, enableValidation.inputErrorClass);
 });
 
-//изменяем информацию о пользователе
+//изменяем информацию о пользователе и закрываем popup
 popupProfile.addEventListener("submit", function (event) {
    event.preventDefault();
    const newUserName = inputUserName.value;
@@ -99,19 +128,11 @@ buttonAdd.addEventListener("click", function () {
    togglePopup(popupPlace);
 });
 
-//добавляем новую карточку 
+//добавляем новую карточку и очищаем поля формы
 popupPlace.addEventListener("submit", function (event) {
    event.preventDefault();
    togglePopup(popupPlace);
    addPlace(newPlaceTitle.value, newLinkImage.value);
-   newPlaceTitle.value = "";
-   newLinkImage.value = "";
+   document.forms.newPlace.reset();
 });
 
-//Добавляем карточки из массива
-initialCards.forEach((item) => {
-   addPlace(item["name"], item["link"]);
-});
-clickButtonClose(popupProfile);
-clickButtonClose(popupPlace);
-clickButtonClose(popupPicture);

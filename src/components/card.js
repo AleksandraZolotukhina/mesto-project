@@ -1,5 +1,6 @@
 import {togglePopup} from "./utils.js";
-import {cards, mestoCardTemplate, newPicture, pictureTitle, popupPicture} from "./index.js";
+import {cards, mestoCardTemplate, newPicture, pictureTitle, popupPicture, initialCards} from "./index.js";
+
 
 //ставим и убираем лайки карточкам
 function addLikeEvent(card){
@@ -50,6 +51,7 @@ export function addPlace(title, link) {
     addPopupPictureEvent(newCard,title,link)
     addCard(cards,newCard);
 }
+
 
 
 

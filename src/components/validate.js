@@ -6,14 +6,14 @@ function disableButton(form, buttonSelector, buttonClassDisable){
 }
 
 // включаем доступ к кнопке 
-export function inDisableButton(form, buttonSelector, buttonClassDisable){
+function inDisableButton(form, buttonSelector, buttonClassDisable){
     const button = form.querySelector(buttonSelector);
     button.classList.remove(buttonClassDisable);
     button.disabled = false;
 }
 
 // скрываем ошибку
-function hideError(form, input, errorClassVisible, inputErrorClass){
+export function hideError(form, input, errorClassVisible, inputErrorClass){
     form.querySelector(`.${input.id}-error`).classList.remove(errorClassVisible);
     input.classList.remove(inputErrorClass);
 }
@@ -45,7 +45,7 @@ function hasInvalidInput(inputList){
 }
 
 // проверяем все поля формы на валидность и блокируем или включаем доступ к кнопке типа "submit" 
-function isValidAllInputs(inputList, form, buttonSelector, buttonClassDisable){
+export function isValidAllInputs(form, inputList, buttonSelector, buttonClassDisable){
     if(hasInvalidInput(inputList)){
         disableButton(form, buttonSelector, buttonClassDisable);
     }
@@ -57,12 +57,12 @@ function isValidAllInputs(inputList, form, buttonSelector, buttonClassDisable){
 // проверяем все поля форм на валидность
 export function setUpValidation({formSelector, inputSelector, errorClassVisible, inputErrorClass, buttonSelector, buttonClassDisable}){
     Array.from(document.querySelectorAll(formSelector)).forEach(form=>{
-        disableButton(form, buttonSelector, buttonClassDisable);
         const inputList = Array.from(form.querySelectorAll(inputSelector));
+        isValidAllInputs(form, inputList, buttonSelector, buttonClassDisable);
         inputList.forEach(input=>{
             input.addEventListener("input", function(){
                 isValid(form, input, errorClassVisible, inputErrorClass, buttonSelector, buttonClassDisable);
-                isValidAllInputs(inputList, form, buttonSelector, buttonClassDisable);
+                isValidAllInputs(form, inputList, buttonSelector, buttonClassDisable);
             })
         })
     })

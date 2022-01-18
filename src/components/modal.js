@@ -1,8 +1,9 @@
-import {togglePopup} from "./utils.js";
 
-//нажатие на кнопку закрытия popup
-export function clickButtonClose(popupElement) {
-    popupElement.querySelector(".popup__button_el_close").addEventListener("click", function () {
-        togglePopup(popupElement);
-    })
-}
+import {hideError} from "./validate.js"
+
+// очищаем поля ошибок в popup-е
+export function clearErrorFields(popup, inputList, errorClassVisible, inputErrorClass){
+    inputList.forEach(input=>{
+       hideError(popup, input, errorClassVisible, inputErrorClass)
+    });
+ }
