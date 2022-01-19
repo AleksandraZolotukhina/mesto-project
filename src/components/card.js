@@ -1,5 +1,5 @@
-import {togglePopup} from "./utils.js";
-import {cards, mestoCardTemplate, newPicture, pictureTitle, popupPicture, initialCards} from "./index.js";
+import {openPopup} from "./utils.js";
+import {cards, mestoCardTemplate, newPicture, pictureTitle, popupPicture} from "./index.js";
 
 
 //ставим и убираем лайки карточкам
@@ -25,6 +25,10 @@ function createCard(title,link){
     initialPicture.alt = title;
     newPlace.querySelector(".elements__title").textContent = title;
     
+    addLikeEvent(newPlace);
+    addDeleteEvent(newPlace);
+    addPopupPictureEvent(newPlace,title,link);
+
     return newPlace;
 }
 
@@ -39,16 +43,13 @@ function addPopupPictureEvent(card,title,link){
         newPicture.src = link;
         newPicture.alt = title;
         pictureTitle.textContent = title;
-        togglePopup(popupPicture);
+        openPopup(popupPicture);
     })
 }
 
 //Функция взаимодействия с карточками
 export function addPlace(title, link) {
     const newCard = createCard(title,link);
-    addLikeEvent(newCard);
-    addDeleteEvent(newCard);
-    addPopupPictureEvent(newCard,title,link)
     addCard(cards,newCard);
 }
 

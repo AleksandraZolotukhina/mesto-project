@@ -1,13 +1,11 @@
 // блокируем доступ к кнопке
-function disableButton(form, buttonSelector, buttonClassDisable){
-    const button = form.querySelector(buttonSelector);
+function disableButton(button, buttonClassDisable){
     button.classList.add(buttonClassDisable);
     button.disabled = true;
 }
 
 // включаем доступ к кнопке 
-function inDisableButton(form, buttonSelector, buttonClassDisable){
-    const button = form.querySelector(buttonSelector);
+function inDisableButton(button, buttonClassDisable){
     button.classList.remove(buttonClassDisable);
     button.disabled = false;
 }
@@ -27,13 +25,13 @@ function showError(form, input, errorClassVisible, inputErrorClass){
 }
 
 // проверяем поле формы на валидность и показываем или скрываем поле ошибки
-function isValid(form, input, errorClassVisible, inputErrorClass, buttonSelector, buttonClassDisable){
+function isValid(form, input, button, errorClassVisible, inputErrorClass, buttonSelector, buttonClassDisable){
     if(input.validity.valid){
         hideError(form, input, errorClassVisible, inputErrorClass);
     }
     else{
-        showError(form, input, errorClassVisible, inputErrorClass, buttonSelector, buttonClassDisable);
-        disableButton(form, buttonSelector, buttonClassDisable);
+        showError(form, input, errorClassVisible, inputErrorClass);
+        disableButton(button, buttonSelector, buttonClassDisable);
     }
 }
 
@@ -45,12 +43,12 @@ function hasInvalidInput(inputList){
 }
 
 // проверяем все поля формы на валидность и блокируем или включаем доступ к кнопке типа "submit" 
-export function isValidAllInputs(form, inputList, buttonSelector, buttonClassDisable){
+export function isValidAllInputs(button, inputList, buttonClassDisable){
     if(hasInvalidInput(inputList)){
-        disableButton(form, buttonSelector, buttonClassDisable);
+        disableButton(button, buttonClassDisable);
     }
     else{
-        inDisableButton(form, buttonSelector, buttonClassDisable);
+        inDisableButton(button, buttonClassDisable);
     }
 }
 
@@ -58,11 +56,12 @@ export function isValidAllInputs(form, inputList, buttonSelector, buttonClassDis
 export function setUpValidation({formSelector, inputSelector, errorClassVisible, inputErrorClass, buttonSelector, buttonClassDisable}){
     Array.from(document.querySelectorAll(formSelector)).forEach(form=>{
         const inputList = Array.from(form.querySelectorAll(inputSelector));
-        isValidAllInputs(form, inputList, buttonSelector, buttonClassDisable);
+        const button = form.querySelector(buttonSelector);
+        isValidAllInputs(button, inputList, buttonClassDisable);
         inputList.forEach(input=>{
             input.addEventListener("input", function(){
-                isValid(form, input, errorClassVisible, inputErrorClass, buttonSelector, buttonClassDisable);
-                isValidAllInputs(form, inputList, buttonSelector, buttonClassDisable);
+                isValid(form, input, button, errorClassVisible, inputErrorClass, buttonSelector, buttonClassDisable);
+                isValidAllInputs(button, inputList, buttonClassDisable);
             })
         })
     })
