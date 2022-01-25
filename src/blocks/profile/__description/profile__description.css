@@ -12,6 +12,11 @@
     line-height: 22px;
     font-weight: 400;
 }
+@media screen and (max-width:710px){
+    .profile__description{
+      justify-self: center;
+    }
+}
 @media screen and (min-width:320px) and (max-width:450px){
     .profile__description{
         font-size: 14px;

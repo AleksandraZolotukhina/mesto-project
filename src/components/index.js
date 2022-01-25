@@ -1,66 +1,67 @@
 import './../index.css';
 
-import moscowImage from "./../images/Moscow.jpg";
-import kazanImage from "./../images/Kazan.jpg";
-import nizhnyNovgorodImage from "./../images/Nizhny_Novgorod.jpg";
-import saintPetersburgImage from "./../images/Saint-Petersburg.jpg";
-import baikalImage from "./../images/Baikal.jpg";
-import petropavlovskKamchatskyImage from "./../images/Petropavlovsk-Kamchatsky.jpg";
-
 import {addPlace} from "./card.js";
 import {closePopup, openPopup} from "./utils.js"
 import {setUpValidation, isValidAllInputs} from "./validate.js";
 import {clearErrorFields} from "./modal.js"
+import {userInformation, initialCards, changeUserInfomation, addNewCard, changeUserAvatar} from "./api.js";
 
 const content = document.querySelector(".page__content");
 
 const buttonEdit = content.querySelector(".profile__button-edit");
 const buttonAdd = content.querySelector(".profile__button-add");
 
+const avatarEdit = content.querySelector(".profile__avatar-container");
+
 const popups = document.querySelectorAll(".popup");
 const popupProfile = content.querySelector(".popup_el_profile");
 const popupPlace = content.querySelector(".popup_el_place");
 export const popupPicture = content.querySelector(".popup_el_picture");
+const popupAvatar = content.querySelector(".popup_el_avatar");
 
-const inputUserName = popupProfile.querySelector("#username");
-const inputDescribUser = popupProfile.querySelector("#occupation");
+const newUserName = popupProfile.querySelector("#username");
+const newDescribUser = popupProfile.querySelector("#occupation");
+const newPlaceTitle = popupPlace.querySelector("#place-title");
+const newLinkImage = popupPlace.querySelector("#link-image");
+const newAvatar = popupAvatar.querySelector("#link-avatar");
 
 const userName = content.querySelector(".profile__username");
 const describUser = content.querySelector(".profile__description");
+const userAvatar = content.querySelector(".profile__avatar");
 
 export const cards = content.querySelector(".elements");
 export const newPicture = popupPicture.querySelector(".picture__element");
 export const pictureTitle = popupPicture.querySelector(".picture__title");
 export const mestoCardTemplate = content.querySelector(".elements__mesto").content;
-const newPlaceTitle = popupPlace.querySelector("#place-title");
-const newLinkImage = popupPlace.querySelector("#link-image");
 
-const initialCards = [
-   {
-      name: 'Москва',
-      link: moscowImage
-   },
-   {
-      name: 'Казань',
-      link: kazanImage
-   },
-   {
-      name: 'Нижний Новгород',
-      link: nizhnyNovgorodImage
-   },
-   {
-      name: 'Санкт-Петербург',
-      link: saintPetersburgImage
-   },
-   {
-      name: 'Байкал',
-      link: baikalImage
-   },
-   {
-      name: 'Петропавловск-Камчатский',
-      link: petropavlovskKamchatskyImage
-   }
-];
+const buttonPopupAvatar = popupAvatar.querySelector(".form__button");
+const buttonPopupProfile = popupProfile.querySelector(".form__button");
+const buttonPopupPlace = popupPlace.querySelector(".form__button");
+
+// добавляем информацию о пользователе
+function addUserInformation(name, about, avatar){
+   userName.textContent = name;
+   describUser.textContent = about;
+
+   userAvatar.src = avatar;
+   userAvatar.alt = name;
+}
+
+export let userId;
+
+Promise.all([userInformation(), initialCards()])
+.then((data)=>{
+   userId = data[0]._id;
+   addUserInformation(data[0].name, data[0].about, data[0].avatar);
+
+   data[1].reverse();
+   data[1].forEach(item=>{
+      addPlace(item.name, item.link, item.likes, item._id, item.owner._id);
+   })
+})
+.catch(err=>{
+   console.log(err);
+}) 
 
 const enableValidation= ({
    formSelector: ".form",
@@ -73,11 +74,6 @@ const enableValidation= ({
 
 // вызываем валидацию
 setUpValidation(enableValidation);
-
-//Добавляем карточки из массива
-initialCards.forEach((item) => {
-   addPlace(item["name"], item["link"]);
-});
 
 // закрываем popup при нажатии на крестик или оверлей
 popups.forEach(popup => {
@@ -92,10 +88,10 @@ popups.forEach(popup => {
 buttonEdit.addEventListener("click", function () {
    openPopup(popupProfile);
    // в input записываем имя пользователя и описание о себе
-   inputUserName.value = userName.textContent;
-   inputDescribUser.value = describUser.textContent;
-   const inputList = Array.from(popupProfile.querySelectorAll(".form__input"));
+   newUserName.value = userName.textContent;
+   newDescribUser.value = describUser.textContent;
 
+   const inputList = Array.from(popupProfile.querySelectorAll(".form__input"));
    // делаем проверку на валидность, с помощью которой сохраняем доступ к кнопке
    isValidAllInputs(popupProfile.querySelector(enableValidation.buttonSelector), inputList, enableValidation.buttonClassDisable);
 
@@ -103,15 +99,56 @@ buttonEdit.addEventListener("click", function () {
    clearErrorFields(popupProfile, inputList, enableValidation.errorClassVisible, enableValidation.inputErrorClass);
 });
 
+avatarEdit.addEventListener("click", function(){
+   openPopup(popupAvatar);
+   
+   //делаем проверку на валидность, с помощью которой блокируем доступ к кнопке
+   isValidAllInputs(popupAvatar.querySelector(enableValidation.buttonSelector), Array.from(popupAvatar.querySelectorAll(".form__input")), enableValidation.buttonClassDisable);
+})
+
+popupAvatar.addEventListener("submit", function(event){
+   event.preventDefault();
+   const dataAvatar = {
+      avatar: newAvatar.value
+   }
+   const oldTextButton = buttonPopupAvatar.textContent;
+   buttonPopupAvatar.textContent = "Сохранение...";
+   changeUserAvatar(dataAvatar)
+   .then((data) => {
+      userAvatar.src = data.avatar;
+   })
+   .catch((err) => {
+      console.log(err);
+   })
+   .finally(() => {
+      closePopup(popupAvatar);
+      document.forms.newAvatar.reset();
+      buttonPopupAvatar.textContent = oldTextButton;
+   })
+})
 //изменяем информацию о пользователе и закрываем popup
 popupProfile.addEventListener("submit", function (event) {
    event.preventDefault();
-   const newUserName = inputUserName.value;
-   const newDescribUser = inputDescribUser.value;
-   userName.textContent = newUserName;
-   describUser.textContent = newDescribUser;
-   closePopup(popupProfile);
 
+   const newDataUser = {
+      "name": newUserName.value,
+      "about": newDescribUser.value
+   }
+
+   const oldTextButton = buttonPopupProfile.textContent;
+   buttonPopupProfile.textContent = "Сохранение...";
+
+   changeUserInfomation(newDataUser)
+   .then((data)=>{
+      addUserInformation(data.name, data.about);
+   })
+   .catch((err) => {
+      console.log(err);
+   })
+   .finally(()=>{
+      closePopup(popupProfile);
+      buttonPopupProfile.textContent = oldTextButton;
+   })
 })
 
 //открываем popup place
@@ -122,12 +159,27 @@ buttonAdd.addEventListener("click", function () {
 //добавляем новую карточку и очищаем поля формы
 popupPlace.addEventListener("submit", function (event) {
    event.preventDefault();
-   closePopup(popupPlace);
-   addPlace(newPlaceTitle.value, newLinkImage.value);
-   document.forms.newPlace.reset();
+   const dataCard = {
+      "name": newPlaceTitle.value,
+      "link": newLinkImage.value
+   }
+   const oldTextButton = buttonPopupPlace.textContent;
+   buttonPopupPlace.textContent = "Сохранение...";
 
-   const inputList = Array.from(popupPlace.querySelectorAll(".form__input"));
+   addNewCard(dataCard)
+   .then((data)=>{
+      addPlace(data.name, data.link, data.likes, data._id, data.owner._id);
+   })
+   .catch((err) => {
+      console.log(err);
+   })
+   .finally(() => {
+      closePopup(popupPlace);
+      document.forms.newPlace.reset();
+      buttonPopupPlace.textContent = oldTextButton;
 
-   // делаем проверку на валидность, с помощью которой блокируем доступ к кнопке
-   isValidAllInputs(popupPlace.querySelector(enableValidation.buttonSelector), inputList, enableValidation.buttonClassDisable);
+      // делаем проверку на валидность, с помощью которой блокируем доступ к кнопке
+      isValidAllInputs(popupPlace.querySelector(enableValidation.buttonSelector), Array.from(popupPlace.querySelectorAll(".form__input")), enableValidation.buttonClassDisable);
+   })
 });
+
