@@ -64,7 +64,7 @@ function addDeleteEvent(trash, cardId){
     trash.addEventListener("click", function () {
         deleteCard(cardId)
         .then(() => {
-            trash.parentElement.remove();
+            trash.closest(".elements__element").remove();
         })
         .catch((err) => {
             console.log(err);

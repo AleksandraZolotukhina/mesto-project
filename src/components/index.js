@@ -39,10 +39,13 @@ const buttonPopupProfile = popupProfile.querySelector(".form__button");
 const buttonPopupPlace = popupPlace.querySelector(".form__button");
 
 // добавляем информацию о пользователе
-function addUserInformation(name, about, avatar){
+function addUserInformation(name, about){
    userName.textContent = name;
    describUser.textContent = about;
+}
 
+// добавляем фотографию пользователя
+function addUserAvatar(name,avatar){
    userAvatar.src = avatar;
    userAvatar.alt = name;
 }
@@ -50,13 +53,14 @@ function addUserInformation(name, about, avatar){
 export let userId;
 
 Promise.all([userInformation(), initialCards()])
-.then((data)=>{
-   userId = data[0]._id;
-   addUserInformation(data[0].name, data[0].about, data[0].avatar);
+.then(([user, cards]) => {
+   userId = user._id;
+   addUserInformation(user.name, user.about);
+   addUserAvatar(user.name,user.avatar)
 
-   data[1].reverse();
-   data[1].forEach(item=>{
-      addPlace(item.name, item.link, item.likes, item._id, item.owner._id);
+   cards.reverse();
+   cards.forEach(card=>{
+      addPlace(card.name, card.link, card.likes, card._id, card.owner._id);
    })
 })
 .catch(err=>{
@@ -115,14 +119,14 @@ popupAvatar.addEventListener("submit", function(event){
    buttonPopupAvatar.textContent = "Сохранение...";
    changeUserAvatar(dataAvatar)
    .then((data) => {
-      userAvatar.src = data.avatar;
+      addUserAvatar(data.name, data.avatar);
+      closePopup(popupAvatar);
+      document.forms.newAvatar.reset();
    })
    .catch((err) => {
       console.log(err);
    })
    .finally(() => {
-      closePopup(popupAvatar);
-      document.forms.newAvatar.reset();
       buttonPopupAvatar.textContent = oldTextButton;
    })
 })
@@ -141,12 +145,12 @@ popupProfile.addEventListener("submit", function (event) {
    changeUserInfomation(newDataUser)
    .then((data)=>{
       addUserInformation(data.name, data.about);
+      closePopup(popupProfile);
    })
    .catch((err) => {
       console.log(err);
    })
    .finally(()=>{
-      closePopup(popupProfile);
       buttonPopupProfile.textContent = oldTextButton;
    })
 })
@@ -169,17 +173,16 @@ popupPlace.addEventListener("submit", function (event) {
    addNewCard(dataCard)
    .then((data)=>{
       addPlace(data.name, data.link, data.likes, data._id, data.owner._id);
+      closePopup(popupPlace);
+      document.forms.newPlace.reset();
+      // делаем проверку на валидность, с помощью которой блокируем доступ к кнопке
+      isValidAllInputs(popupPlace.querySelector(enableValidation.buttonSelector), Array.from(popupPlace.querySelectorAll(".form__input")), enableValidation.buttonClassDisable);
    })
    .catch((err) => {
       console.log(err);
    })
    .finally(() => {
-      closePopup(popupPlace);
-      document.forms.newPlace.reset();
       buttonPopupPlace.textContent = oldTextButton;
-
-      // делаем проверку на валидность, с помощью которой блокируем доступ к кнопке
-      isValidAllInputs(popupPlace.querySelector(enableValidation.buttonSelector), Array.from(popupPlace.querySelectorAll(".form__input")), enableValidation.buttonClassDisable);
    })
 });
 

@@ -6,29 +6,25 @@ const config = {
         "Content-Type": "application/json"
     }
 }
+function checkResponce(res){
+    if(res.ok){
+        return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+}
 
 export const userInformation = () => {
     return fetch(`${config.baseUrl}/users/me`, {
         headers: config.headers
     })
-    .then(res => {
-        if(res.ok){
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponce)
 }
 
 export const initialCards = () => {
     return fetch(`${config.baseUrl}/cards`, {
         headers: config.headers
     })
-    .then(res => {
-        if(res.ok){
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponce)
 }
 
 export const addLike = (id) => {
@@ -36,12 +32,7 @@ export const addLike = (id) => {
         method: "PUT",
         headers: config.headers
     })
-    .then(res=>{
-        if(res.ok){
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponce)
 }
 
 export const removeLike = (id) => {
@@ -49,12 +40,7 @@ export const removeLike = (id) => {
         method: "DELETE",
         headers: config.headers
     })
-    .then(res => {
-        if(res.ok){
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponce)
 }
 
 export const changeUserInfomation = (dataUser) => {
@@ -63,12 +49,7 @@ export const changeUserInfomation = (dataUser) => {
         headers: config.headers,
         body: JSON.stringify(dataUser)
     })
-    .then(res => {
-        if(res.ok){
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponce)
 }
 
 export const addNewCard = (dataCard) => {
@@ -77,12 +58,7 @@ export const addNewCard = (dataCard) => {
         headers: config.headers,
         body: JSON.stringify(dataCard)
     })
-    .then(res => {
-        if(res.ok){
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponce)
 }
 
 export const deleteCard = (cardId) => {
@@ -90,12 +66,7 @@ export const deleteCard = (cardId) => {
         method: "DELETE",
         headers: config.headers
     })
-    .then((res) => {
-        if(res.ok){
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponce)
 }
 
 export const changeUserAvatar = (newAvatar) => {
@@ -104,12 +75,7 @@ export const changeUserAvatar = (newAvatar) => {
         headers: config.headers,
         body: JSON.stringify(newAvatar)
     })
-    .then((res) => {
-        if(res.ok){
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponce)
 }
 
 
