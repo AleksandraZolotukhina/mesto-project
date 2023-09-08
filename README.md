@@ -1,31 +1,21 @@
-# Проект: Место
-![image](https://user-images.githubusercontent.com/87070723/150956979-b9cb9f03-d056-47a9-a286-65c744cbb4b0.png)
-### Обзор
-- О проекте
-    - Figma
-    - Какие технологии используются в проекте
-    - Изменения
-    - GitHub Pages
-## О проекте
-В этома проекте Вы можете добавлять свои фотографии, ставить лайки, изменять свой профиль.
-- Figma
+# :camera: Место
+[Ссылка на проект](https://aleksandrazolotukhina.github.io/mesto-project/)
+<br>
+<p align="center">
+    <img width="600" src="https://user-images.githubusercontent.com/87070723/150956979-b9cb9f03-d056-47a9-a286-65c744cbb4b0.png">
+</p>
 
-    [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=28212%3A212)
+## Описание проекта
+Социальная сеть для добавления и просмотра фотографий 
     
-    [Ссылка на дополнительный макет в Figma](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1)
-- GitHub Pages
+## Используемые технологии
+- HTML5
+- CSS3
+- Babel
+- Webpack
+- методология БЭМ и организация файловой структуры <em>Nested</em>
 
-    [Ссылка GitHub Pages](https://alexandrazolotykhina.github.io/mesto-project/index.html)
-    
-- Какие технологии используются в проекте
-    - БЭМ методология и организация файловой структуры <em>Nested</em>
-    - Для быстроты загрузки сайта, изображения были оптимизорованы
-    - Для разработки интерфейса для разных устройств используются <em>медиа-запросы</em>
-    - Оптимизация шрифтов под устройства с различными разрешениями
-    - При эффекте наведения к кнопкам применено свойство <em>transition</em>
-    - Плавное открытие и закрытие попапов
-- Изменения на 25.01.2022
-    - Валидация форм 
-    - Webpack
-    - Связали наш сайт с сервером
-
+## Ссылки на дизайн проекта
+[Дизайн проекта](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=28212%3A212)
+<br>
+[Дизайн проекта 2](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1)
